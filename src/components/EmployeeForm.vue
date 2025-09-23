@@ -56,6 +56,7 @@
         placeholder="Confirm Password"
         class="w-full mb-1 p-2 border rounded"
       />
+      <div v-if="errors.password_confirmation" class="text-red-600 text-sm mb-2">{{ errors.password_confirmation[0] }}</div>
 
       <!-- Role -->
       <select v-model="role" class="w-full mb-1 p-2 border rounded" required>
@@ -75,6 +76,7 @@
 
       <!-- Image -->
       <input type="file" @change="onFileChange" class="mb-4" />
+      <div v-if="errors.img" class="text-red-600 text-sm mb-2">{{ errors.img[0] }}</div>
 
       <!-- Buttons -->
       <div class="flex justify-end gap-2">
@@ -91,7 +93,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue"
-import { useEmployeeStore } from "@store/employeeStore.ts"
+import { useEmployeeStore } from "@/store/employeeStore"
 
 const props = defineProps<{ editData: any | null }>()
 const emit = defineEmits<{
@@ -149,8 +151,30 @@ function onFileChange(e: Event) {
   }
 }
 
+// Frontend validation
+function validateForm(): boolean {
+  errors.value = {}
+
+  if (!name.value.trim()) errors.value.name = ["Name is required."]
+  if (!email.value.trim()) errors.value.email = ["Email is required."]
+  if (!username.value.trim()) errors.value.username = ["Username is required."]
+  if (!phone_no.value.trim()) errors.value.phone_no = ["Phone number is required."]
+  if (!role.value) errors.value.role = ["Role is required."]
+  if (!status.value) errors.value.status = ["Status is required."]
+
+  if (!props.editData) {
+    if (!password.value) errors.value.password = ["Password is required."]
+    else if (password.value.length < 8) errors.value.password = ["Password must be at least 8 characters."]
+    if (password.value !== password_confirmation.value) errors.value.password_confirmation = ["Passwords do not match."]
+  }
+
+  return Object.keys(errors.value).length === 0
+}
+
 // Handle submit
 async function handleSubmit() {
+  if (!validateForm()) return
+
   const formData = new FormData()
   formData.append("name", name.value)
   formData.append("email", email.value)
@@ -170,18 +194,16 @@ async function handleSubmit() {
 
   try {
     if (props.editData) {
-      // Edit employee
       await store.updateEmployee(props.editData.id, formData)
     } else {
-      // Add employee
       await store.addEmployee(formData)
     }
     emit("save")
   } catch (err: any) {
     if (err.response && err.response.status === 422) {
-      errors.value = err.response.data
+      errors.value = err.response.data.errors || {}
     } else {
-      console.error(err)
+      console.error("Unexpected error:", err)
     }
   }
 }

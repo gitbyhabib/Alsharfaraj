@@ -7,7 +7,6 @@
         <th class="p-2 border">Passport</th>
         <th class="p-2 border">Phone</th>
         <th class="p-2 border">Email</th>
-        <th class="p-2 border">Actions</th>
       </tr>
     </thead>
     <tbody>
@@ -17,17 +16,12 @@
         <td class="p-2 border">{{ c.passport }}</td>
         <td class="p-2 border">{{ c.phone }}</td>
         <td class="p-2 border">{{ c.email }}</td>
-        <td class="p-2 border flex space-x-2">
-          <button @click="$emit('delete', c.id)" class="px-2 py-1 bg-red-500 text-white rounded hover:bg-red-600">Delete</button>
-        </td>
       </tr>
     </tbody>
   </table>
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
-
+import { defineProps } from 'vue'
 const props = defineProps({ customers: Array })
-const emit = defineEmits(['delete'])
 </script>
