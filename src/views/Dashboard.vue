@@ -20,10 +20,11 @@
       </div>
 
       <!-- Quick Action Links -->
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
         <router-link to="/customers" class="block bg-blue-600 text-white p-6 rounded shadow hover:bg-blue-700 text-center">Manage Customers</router-link>
         <router-link v-if="isAdmin" to="/employees" class="block bg-green-600 text-white p-6 rounded shadow hover:bg-green-700 text-center">Manage Employees</router-link>
         <router-link to="/services" class="block bg-purple-600 text-white p-6 rounded shadow hover:bg-purple-700 text-center">Manage Services</router-link>
+         <router-link v-if="isAdmin" to="/servicestype" class="block bg-blue-600 text-white p-6 rounded shadow hover:bg-blue-700 text-center">Manage Service Type</router-link>
       </div>
     </div>
   </div>

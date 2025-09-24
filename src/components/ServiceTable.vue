@@ -3,21 +3,27 @@
     <table class="min-w-full bg-white rounded shadow">
       <thead>
         <tr class="bg-gray-100">
-          <th class="py-2 px-4 text-left">Service ID</th>
+          <th class="py-2 px-4 text-left">ID</th>
+          <th class="py-2 px-4 text-left">Details</th>
+          <th class="py-2 px-4 text-left">Charge</th>
+          <th class="py-2 px-4 text-left">Assign To</th>
           <th class="py-2 px-4 text-left">Customer</th>
-          <th class="py-2 px-4 text-left">Type</th>
-          <th class="py-2 px-4 text-left">Cost</th>
-          <th class="py-2 px-4 text-left">Status</th>
+          <th class="py-2 px-4 text-left">Service Type</th>
+          <th class="py-2 px-4 text-left">Delivery</th>
+          <th class="py-2 px-4 text-left">Receive</th>
           <th class="py-2 px-4 text-left">Actions</th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="service in services" :key="service.id" class="border-b">
           <td class="py-2 px-4">{{ service.id }}</td>
-          <td class="py-2 px-4">{{ service.customerName }}</td>
-          <td class="py-2 px-4">{{ service.type }}</td>
-          <td class="py-2 px-4">{{ service.cost }}</td>
-          <td class="py-2 px-4">{{ service.status }}</td>
+          <td class="py-2 px-4">{{ service.details }}</td>
+          <td class="py-2 px-4">{{ service.charge_amount }}</td>
+          <td class="py-2 px-4">{{ service.service_assign_to }}</td>
+          <td class="py-2 px-4">{{ service.customer_id }}</td>
+          <td class="py-2 px-4">{{ service.service_type_id }}</td>
+          <td class="py-2 px-4">{{ service.delivery_date }}</td>
+          <td class="py-2 px-4">{{ service.receive_date }}</td>
           <td class="py-2 px-4 space-x-2">
             <button @click="$emit('edit', service)" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">
               Edit
@@ -34,18 +40,8 @@
 
 <script setup lang="ts">
 import { defineProps, defineEmits } from 'vue'
-
-interface Service {
-  id: number
-  customerName: string
-  type: string
-  cost: number
-  status: string
-}
+import type { Service } from '../store/serviceStore'
 
 const props = defineProps<{ services: Service[] }>()
-const emit = defineEmits<{
-  (e: 'edit', service: Service): void
-  (e: 'delete', id: number): void
-}>()
+const emit = defineEmits<{ (e: 'edit', service: Service): void; (e: 'delete', id: number): void }>()
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white p-6 rounded shadow-md w-96">
+  <div class="bg-white rounded  w-full">
     <h3 class="text-xl font-bold mb-4">{{ editData ? 'Edit' : 'Add' }} Employee</h3>
     <form @submit.prevent="handleSubmit">
 

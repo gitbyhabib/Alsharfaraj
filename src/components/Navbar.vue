@@ -7,13 +7,13 @@
       <router-link to="/services" class="hover:text-gray-300">Services</router-link>
       <!-- Only show Employees link for admin/superadmin -->
       <router-link 
-        v-if="auth.user?.role === 'admin' || auth.user?.role === 'superadmin'" 
+        v-if="auth.user?.role === 'admin' || auth.user?.role === 'super_admin'" 
         to="/employees" 
         class="hover:text-gray-300">
         Employees
       </router-link>
     </div>
-   <button @click="handleLogout" class="bg-red-600 px-3 py-1 rounded hover:bg-red-700">
+    <button @click="handleLogout" class="bg-red-600 px-3 py-1 rounded hover:bg-red-700">
       Logout
     </button>
   </nav>
@@ -26,8 +26,8 @@ import { useRouter } from 'vue-router'
 const auth = useAuthStore()
 const router = useRouter()
 
-function handleLogout() {
-  auth.logout()
-  router.push('/login')
+async function handleLogout() {
+  await auth.logout() // ✅ wait for backend logout and clear state
+  router.replace('/login') // ✅ use replace so back button cannot go back
 }
 </script>

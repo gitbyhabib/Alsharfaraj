@@ -30,21 +30,29 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { useAuthStore } from '../store/authStore'
 
 const email = ref('')
 const password = ref('')
 const error = ref('')
+
 const auth = useAuthStore()
 const router = useRouter()
+
+// ✅ Redirect if already logged in
+onMounted(() => {
+  if (auth.user) {
+    router.replace({ name: 'Dashboard' }) // replace so back button doesn't return to login
+  }
+})
 
 async function handleLogin() {
   error.value = '' // reset previous error
   try {
-    await auth.login(email.value, password.value) // ✅ wait for API response
-    router.push({ name: 'Dashboard' }) // ✅ use named route (safer)
+    await auth.login(email.value, password.value)
+    router.replace({ name: 'Dashboard' }) // replace after successful login
   } catch (err: any) {
     error.value = err.message || 'Login failed'
   }
