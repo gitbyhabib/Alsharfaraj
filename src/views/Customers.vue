@@ -66,11 +66,9 @@ async function saveCustomer(customer: Customer) {
     } else {
       await store.addCustomer(customer)
     }
-
     await store.fetchCustomers()
     closeForm()
   } catch (error) {
-    // backend validation errors are stored in store.errors
     formErrors.value = store.errors
   }
 }

@@ -57,11 +57,8 @@ function openForm() { editData.value = null; showForm.value = true }
 function closeForm() { showForm.value = false; editData.value = null }
 
 async function save(data: { name: string; status: string; minimum_cost: number }) {
-  if (editData.value) {
-    await store.updateServiceType(editData.value.id, data)
-  } else {
-    await store.addServiceType(data)
-  }
+  if (editData.value) await store.updateServiceType(editData.value.id, data)
+  else await store.addServiceType(data)
   closeForm()
 }
 

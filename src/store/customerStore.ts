@@ -1,76 +1,59 @@
+// src/store/customerStore.ts
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
 export interface Customer {
-  id: number
+  id?: number
   name: string
   passport_no: string
   phone_no: string
-  lead_id: string
+  lead_id?: number
   address?: string
 }
 
-const baseUrl = 'http://localhost:8000/api'
-
-export const useCustomerStore = defineStore('customers', {
+export const useCustomerStore = defineStore('customer', {
   state: () => ({
     customers: [] as Customer[],
-    errors: {} as Record<string, string[]>
+    errors: {} as Record<string, string[]>,
   }),
-
   actions: {
+    // Fetch all customers
     async fetchCustomers() {
       try {
-        const res = await axios.get(`${baseUrl}/customer/view`)
-        this.customers = res.data
-      } catch (error) {
-        console.error(error)
+        const response = await axios.get('http://localhost:8000/api/customer/view')
+        this.customers = response.data.data || response.data
+      } catch (error: any) {
+        console.error('Error fetching customers:', error)
       }
     },
 
+    // Register a new customer
     async addCustomer(customer: Customer) {
-      this.errors = {}
       try {
-        const res = await axios.post(`${baseUrl}/customer/register`, customer)
-        this.customers.push(res.data)
+        await axios.post('http://localhost:8000/api/customer/register', customer)
       } catch (error: any) {
-        if (error.response?.status === 422) {
-          this.errors = error.response.data.errors || {}
-          throw error
-        } else if (error.response?.data?.message) {
-          this.errors = { general: [error.response.data.message] }
-          throw error
-        } else {
-          console.error(error)
-        }
+        this.errors = error.response?.data?.errors || {}
+        throw error
       }
     },
 
+    // Update customer
     async updateCustomer(customer: Customer) {
-      this.errors = {}
       try {
-        const res = await axios.put(`${baseUrl}/customer/update`, customer)
-        const index = this.customers.findIndex(c => c.id === res.data.id)
-        if (index !== -1) this.customers[index] = res.data
+        await axios.put(`http://localhost:8000/api/customer/${customer.id}`, customer)
       } catch (error: any) {
-        if (error.response?.status === 422) {
-          this.errors = error.response.data.errors || {}
-          throw error
-        } else if (error.response?.data?.message) {
-          this.errors = { general: [error.response.data.message] }
-          throw error
-        } else {
-          console.error(error)
-        }
+        this.errors = error.response?.data?.errors || {}
+        throw error
       }
     },
 
+    // Delete customer
     async removeCustomer(id: number) {
       try {
-        await axios.delete(`${baseUrl}/customer/delete`, { data: { id } })
+        await axios.delete(`http://localhost:8000/api/customer/${id}`)
         this.customers = this.customers.filter(c => c.id !== id)
-      } catch (error) {
-        console.error(error)
+      } catch (error: any) {
+        console.error('Error deleting customer:', error)
       }
     },
   },
