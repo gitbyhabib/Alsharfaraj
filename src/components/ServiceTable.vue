@@ -33,20 +33,27 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
+import { defineProps, onMounted } from 'vue'
 import type { Service } from '../store/serviceStore'
 import { useEmployeeStore } from '../store/employeeStore'
 
 const props = defineProps<{ services: Service[] }>()
 const employeeStore = useEmployeeStore()
 
+// Fetch employees if not already fetched
+onMounted(() => {
+  if (employeeStore.employees.length === 0) {
+    employeeStore.fetchEmployees()
+  }
+})
+
 function getEmployeeName(id: string | number) {
   const emp = employeeStore.employees.find(e => e.id == id)
-  return emp ? emp.name : id
+  return emp ? emp.name : 'Unknown'
 }
 
 function formatDate(dateStr: string) {
   if (!dateStr) return ''
-  return dateStr.split('T')[0] // take only YYYY-MM-DD
+  return dateStr.split('T')[0] // only YYYY-MM-DD
 }
 </script>
