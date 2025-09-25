@@ -12,7 +12,5 @@ app.use(createPinia())
 
 // Load user from localStorage before router runs
 const authStore = useAuthStore()
-if (!localStorage.getItem('token')) {
-  authStore.user = null
-}
+authStore.initialize()
 app.mount('#app')

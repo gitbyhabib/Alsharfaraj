@@ -12,8 +12,8 @@
       <div>
         <label class="block mb-1">Status</label>
         <select v-model="form.status" class="w-full border px-3 py-2 rounded" required>
-          <option value="Active">Active</option>
-          <option value="Inactive">Inactive</option>
+          <option value="active">Active</option>
+          <option value="in_active">Inactive</option>
         </select>
         <div v-if="errors.status" class="text-red-600 text-sm">{{ errors.status[0] }}</div>
       </div>

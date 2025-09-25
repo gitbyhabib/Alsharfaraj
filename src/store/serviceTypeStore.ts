@@ -16,7 +16,7 @@ export const useServiceTypeStore = defineStore('serviceType', {
   actions: {
    async fetchServiceTypes() {
   try {
-    const res = await api.get('/auth/view_service_types')
+    const res = await api.get('/auth/view_ServiceTypes')
     this.serviceTypes = res.data.data || []   // <-- get the array from 'data'
   } catch (error: any) {
     console.error('Error fetching service types:', error)
@@ -41,7 +41,7 @@ export const useServiceTypeStore = defineStore('serviceType', {
     async updateServiceType(id: number, data: { name: string; status: string; minimum_cost: number }) {
       this.errors = {}
       try {
-        const res = await api.put(`/auth/update_service_type/${id}`, data)
+        const res = await api.post(`/auth/update_service_type/${id}`, data)
         const index = this.serviceTypes.findIndex(s => s.id === id)
         if (index !== -1) this.serviceTypes[index] = res.data.data || res.data
       } catch (error: any) {
