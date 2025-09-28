@@ -40,7 +40,7 @@ export const useCustomerStore = defineStore('customer', {
     // Update customer
     async updateCustomer(customer: Customer) {
       try {
-        await axios.put(`http://localhost:8000/api/customer/${customer.id}`, customer)
+        await axios.post(`http://localhost:8000/api/customer/${customer.id}`, customer)
       } catch (error: any) {
         this.errors = error.response?.data?.errors || {}
         throw error
