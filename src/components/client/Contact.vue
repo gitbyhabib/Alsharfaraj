@@ -64,12 +64,15 @@
 
             <div>
               <label class="block text-gray-700 font-medium mb-1">Phone Number</label>
-              <input
-                type="tel"
-                v-model="form.phone_no"
-                class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
-                required
-              />
+             <input
+              type="tel"
+              v-model="form.phone_no"
+              class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+              required
+              pattern="^01[3-9]\d{8}$"
+              title="Enter a valid Bangladeshi phone number"
+            />
+
             </div>
 
             <div>
@@ -119,32 +122,45 @@ export default {
       statusError: false
     }
   },
-  methods: {
-    async submitForm() {
-      try {
-        const response = await fetch('http://localhost:8000/api/leads', {
-          method: 'POST',
-          body: this.buildFormData(this.form) // send as form-data
-        })
-
-        if (!response.ok) throw new Error('Network response was not ok')
-
-        this.statusMessage = '✅ Thank you! Your message has been sent.'
-        this.statusError = false
-        this.form = { name: '', email: '', address: '', phone_no: '', message: '' }
-      } catch (error) {
-        this.statusMessage = '❌ Oops! Something went wrong. Please try again.'
-        this.statusError = true
-        console.error(error)
-      }
-    },
-    buildFormData(data) {
-      const formData = new FormData()
-      for (const key in data) {
-        formData.append(key, data[key])
-      }
-      return formData
+methods: {
+  validatePhone(phone) {
+    // Example: Bangladeshi phone format (starts with 01 and 11 digits total)
+    const phoneRegex = /^01[3-9]\d{8}$/
+    return phoneRegex.test(phone)
+  },
+  async submitForm() {
+    // Check phone number first
+    if (!this.validatePhone(this.form.phone_no)) {
+      this.statusMessage = '❌ Please enter a valid phone number.'
+      this.statusError = true
+      return
     }
+
+    try {
+      const response = await fetch('http://localhost:8000/api/leads', {
+        method: 'POST',
+        body: this.buildFormData(this.form) // send as form-data
+      })
+
+      if (!response.ok) throw new Error('Network response was not ok')
+
+      this.statusMessage = '✅ Thank you! Your message has been sent.'
+      this.statusError = false
+      this.form = { name: '', email: '', address: '', phone_no: '', message: '' }
+    } catch (error) {
+      this.statusMessage = '❌ Oops! Something went wrong. Please try again.'
+      this.statusError = true
+      console.error(error)
+    }
+  },
+  buildFormData(data) {
+    const formData = new FormData()
+    for (const key in data) {
+      formData.append(key, data[key])
+    }
+    return formData
   }
+}
+
 }
 </script>
