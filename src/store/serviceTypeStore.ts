@@ -16,7 +16,7 @@ export const useServiceTypeStore = defineStore('serviceType', {
   actions: {
    async fetchServiceTypes() {
   try {
-    const res = await api.get('/auth/view_ServiceTypes')
+    const res = await api.get('/auth/view_service_types')
     this.serviceTypes = res.data.data || []   // <-- get the array from 'data'
   } catch (error: any) {
     console.error('Error fetching service types:', error)

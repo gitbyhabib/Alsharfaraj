@@ -9,6 +9,7 @@ const emit = defineEmits<{ (e: 'save', customer: Customer): void; (e: 'close'): 
 const localCustomer = ref<Customer>({
   name: '',
   passport_no: '',
+  passport_expired_date: '',   // ✅ new field
   phone_no: '',
   lead_id: undefined,
   address: ''
@@ -21,7 +22,14 @@ watch(
     if (val) {
       localCustomer.value = { ...val }
     } else {
-      localCustomer.value = { name: '', passport_no: '', phone_no: '', lead_id: undefined, address: '' }
+      localCustomer.value = { 
+        name: '', 
+        passport_no: '', 
+        passport_expired_date: '',   // ✅ reset
+        phone_no: '', 
+        lead_id: undefined, 
+        address: '' 
+      }
     }
   },
   { immediate: true }
@@ -48,6 +56,13 @@ const save = () => {
           <label class="block mb-1">Passport</label>
           <input v-model="localCustomer.passport_no" type="text" class="w-full border px-2 py-1 rounded" />
           <p v-if="errors.passport_no" class="text-red-500 text-sm">{{ errors.passport_no[0] }}</p>
+        </div>
+
+        <!-- ✅ New Passport Expired Date -->
+        <div>
+          <label class="block mb-1">Passport Expired Date</label>
+          <input v-model="localCustomer.passport_expired_date" type="date" class="w-full border px-2 py-1 rounded" />
+          <p v-if="errors.passport_expired_date" class="text-red-500 text-sm">{{ errors.passport_expired_date[0] }}</p>
         </div>
 
         <div>

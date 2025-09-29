@@ -17,7 +17,15 @@
             <p><i class="fas fa-phone mr-2"></i> +880 1712498738</p>
             <p><i class="fas fa-envelope mr-2"></i> alsharfaraj2023@gmail.com</p>
           </div>
-       <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.072037714363!2d90.40975771844384!3d23.85157557734609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c75df7f862ab%3A0x7a8b6e99b9ed2587!2sS%20S%20Tower!5e0!3m2!1sen!2sbd!4v1757408494174!5m2!1sen!2sbd" width=100% height="300" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+          <iframe
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3649.072037714363!2d90.40975771844384!3d23.85157557734609!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c75df7f862ab%3A0x7a8b6e99b9ed2587!2sS%20S%20Tower!5e0!3m2!1sen!2sbd!4v1757408494174!5m2!1sen!2sbd"
+            width="100%"
+            height="300"
+            style="border:0;"
+            allowfullscreen=""
+            loading="lazy"
+            referrerpolicy="no-referrer-when-downgrade"
+          ></iframe>
         </div>
 
         <!-- Contact Form -->
@@ -33,6 +41,7 @@
                 required
               />
             </div>
+
             <div>
               <label class="block text-gray-700 font-medium mb-1">Email address</label>
               <input
@@ -42,14 +51,27 @@
                 required
               />
             </div>
+
             <div>
-              <label class="block text-gray-700 font-medium mb-1">Phone Number (Optional)</label>
+              <label class="block text-gray-700 font-medium mb-1">Address</label>
               <input
-                type="tel"
-                v-model="form.phone"
+                type="text"
+                v-model="form.address"
                 class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
               />
             </div>
+
+            <div>
+              <label class="block text-gray-700 font-medium mb-1">Phone Number</label>
+              <input
+                type="tel"
+                v-model="form.phone_no"
+                class="w-full border border-gray-300 p-2 rounded-md focus:outline-none focus:ring-2 focus:ring-blue-500"
+                required
+              />
+            </div>
+
             <div>
               <label class="block text-gray-700 font-medium mb-1">Your Message</label>
               <textarea
@@ -59,6 +81,7 @@
                 required
               ></textarea>
             </div>
+
             <button
               type="submit"
               class="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-md hover:bg-blue-700 transition duration-300"
@@ -68,7 +91,11 @@
           </form>
 
           <!-- Status Message -->
-          <p v-if="statusMessage" class="mt-4 text-center text-green-600 font-medium">
+          <p
+            v-if="statusMessage"
+            :class="statusError ? 'text-red-600' : 'text-green-600'"
+            class="mt-4 text-center font-medium"
+          >
             {{ statusMessage }}
           </p>
         </div>
@@ -81,28 +108,43 @@
 export default {
   data() {
     return {
-      form: { name: '', email: '', phone: '', message: '' },
+      form: {
+        name: '',
+        email: '',
+        address: '',
+        phone_no: '',
+        message: ''
+      },
       statusMessage: '',
+      statusError: false
     }
   },
   methods: {
     async submitForm() {
       try {
-        const response = await fetch('https://your-server-endpoint.com/contact', {
+        const response = await fetch('http://localhost:8000/api/leads', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(this.form),
+          body: this.buildFormData(this.form) // send as form-data
         })
 
         if (!response.ok) throw new Error('Network response was not ok')
 
-        this.statusMessage = 'Thank you! Your message has been sent.'
-        this.form = { name: '', email: '', phone: '', message: '' }
+        this.statusMessage = '✅ Thank you! Your message has been sent.'
+        this.statusError = false
+        this.form = { name: '', email: '', address: '', phone_no: '', message: '' }
       } catch (error) {
-        this.statusMessage = 'Oops! Something went wrong. Please try again.'
+        this.statusMessage = '❌ Oops! Something went wrong. Please try again.'
+        this.statusError = true
         console.error(error)
       }
     },
-  },
+    buildFormData(data) {
+      const formData = new FormData()
+      for (const key in data) {
+        formData.append(key, data[key])
+      }
+      return formData
+    }
+  }
 }
 </script>

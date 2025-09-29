@@ -73,7 +73,7 @@ async function saveCustomer(customer: Customer) {
   }
 }
 
-async function deleteCustomer(id: number) {
+/* async function deleteCustomer(id: number) {
   await store.removeCustomer(id)
-}
+} */
 </script>

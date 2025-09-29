@@ -3,11 +3,11 @@ import { defineStore } from 'pinia'
 interface Lead {
   id: number
   name: string
+  address: string
   email: string
-  phone: string
+  phone_no: string
   message: string
-  status: 'New' | 'Assigned' | 'Converted' | 'Closed'
-  assignedTo?: string
+
 }
 
 export const useLeadStore = defineStore('leads', {

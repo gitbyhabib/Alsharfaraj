@@ -1,6 +1,7 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Dashboard from '../views/Dashboard.vue'
+import Lead from '../views/Leads.vue'
 import Customers from '../views/Customers.vue'
 import Employees from '../views/Employees.vue'
 import Services from '../views/Services.vue'
@@ -12,6 +13,7 @@ const routes = [
   { path: '/', name: 'Home', component: Home },
   { path: '/login', name: 'Login', component: Login },
   { path: '/dashboard', name: 'Dashboard', component: Dashboard, meta: { requiresAuth: true } },
+  { path: '/leads', name: 'leads', component: Lead, meta: { requiresAuth: true } },
   { path: '/customers', name: 'Customers', component: Customers, meta: { requiresAuth: true } },
   { path: '/employees', name: 'Employees', component: Employees, meta: { requiresAuth: true, adminOnly: true } },
   { path: '/servicestype', name: 'ServiceTypes', component: ServiceTypes, meta: { requiresAuth: true, adminOnly: true } },

@@ -6,6 +6,7 @@
           <th class="py-2 px-4 text-left">ID</th>
           <th class="py-2 px-4 text-left">Name</th>
           <th class="py-2 px-4 text-left">Passport</th>
+          <th class="py-2 px-4 text-left">Passport Expiry</th>
           <th class="py-2 px-4 text-left">Phone</th>
           <th class="py-2 px-4 text-left">Lead ID</th>
           <th class="py-2 px-4 text-left">Address</th>
@@ -17,12 +18,13 @@
           <td class="py-2 px-4">{{ customer.id }}</td>
           <td class="py-2 px-4">{{ customer.name }}</td>
           <td class="py-2 px-4">{{ customer.passport_no }}</td>
+          <td class="py-2 px-4">{{ customer.passport_expired_date }}</td>
           <td class="py-2 px-4">{{ customer.phone_no }}</td>
           <td class="py-2 px-4">{{ customer.lead_id }}</td>
           <td class="py-2 px-4">{{ customer.address }}</td>
           <td class="py-2 px-4 space-x-2">
             <button @click="$emit('edit', customer)" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</button>
-            <button @click="$emit('delete', customer.id)" class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">Delete</button>
+           
           </td>
         </tr>
       </tbody>

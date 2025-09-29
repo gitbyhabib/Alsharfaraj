@@ -1,3 +1,4 @@
+
 <template>
   <div>
     <table class="min-w-full bg-white rounded shadow">
@@ -8,6 +9,7 @@
           <th class="py-2 px-4 text-left">Charge</th>
           <th class="py-2 px-4 text-left">Assign To</th>
           <th class="py-2 px-4 text-left">Customer</th>
+          <th class="py-2 px-4 text-left">Service Type</th> <!-- ✅ new column -->
           <th class="py-2 px-4 text-left">Delivery</th>
           <th class="py-2 px-4 text-left">Receive</th>
           <th class="py-2 px-4 text-left">Actions</th>
@@ -19,7 +21,8 @@
           <td class="py-2 px-4">{{ service.details }}</td>
           <td class="py-2 px-4">{{ service.charge_amount }}</td>
           <td class="py-2 px-4">{{ getEmployeeName(service.service_assign_to) }}</td>
-          <td class="py-2 px-4">{{ service.customer_id }}</td>
+          <td class="py-2 px-4">{{ getCustomerName(service.customer_id) }}</td>
+          <td class="py-2 px-4">{{ getServiceTypeName(service.service_type_id) }}</td> <!-- ✅ show type -->
           <td class="py-2 px-4">{{ formatDate(service.receive_date) }}</td>
           <td class="py-2 px-4">{{ formatDate(service.delivery_date) }}</td>
           <td class="py-2 px-4 space-x-2">
@@ -32,24 +35,46 @@
   </div>
 </template>
 
+
 <script setup lang="ts">
 import { defineProps, onMounted } from 'vue'
 import type { Service } from '../store/serviceStore'
 import { useEmployeeStore } from '../store/employeeStore'
+import { useCustomerStore } from '../store/customerStore'
+import { useServiceTypeStore } from '../store/serviceTypeStore' // ✅ import service types
 
 const props = defineProps<{ services: Service[] }>()
-const employeeStore = useEmployeeStore()
 
-// Fetch employees if not already fetched
+const employeeStore = useEmployeeStore()
+const customerStore = useCustomerStore()
+const serviceTypeStore = useServiceTypeStore()
+
+// Fetch employees, customers & service types if not already fetched
 onMounted(() => {
   if (employeeStore.employees.length === 0) {
     employeeStore.fetchEmployees()
+  }
+  if (customerStore.customers.length === 0) {
+    customerStore.fetchCustomers()
+  }
+  if (serviceTypeStore.serviceTypes.length === 0) {
+    serviceTypeStore.fetchServiceTypes()
   }
 })
 
 function getEmployeeName(id: string | number) {
   const emp = employeeStore.employees.find(e => e.id == id)
   return emp ? emp.name : 'Unknown'
+}
+
+function getCustomerName(id: string | number) {
+  const cust = customerStore.customers.find(c => c.id == id)
+  return cust ? cust.name : 'Unknown'
+}
+
+function getServiceTypeName(id: string | number) {
+  const type = serviceTypeStore.serviceTypes.find(t => t.id == id)
+  return type ? type.name : 'Unknown'
 }
 
 function formatDate(dateStr: string) {

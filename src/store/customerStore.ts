@@ -9,6 +9,7 @@ export interface Customer {
   phone_no: string
   lead_id?: number
   address?: string
+  passport_expired_date?: string // in YYYY/MM/DD format
 }
 
 export const useCustomerStore = defineStore('customer', {
@@ -40,7 +41,7 @@ export const useCustomerStore = defineStore('customer', {
     // Update customer
     async updateCustomer(customer: Customer) {
       try {
-        await axios.post(`http://localhost:8000/api/customer/${customer.id}`, customer)
+        await axios.post(`http://localhost:8000/api/customer/update/${customer.id}`, customer)
       } catch (error: any) {
         this.errors = error.response?.data?.errors || {}
         throw error
