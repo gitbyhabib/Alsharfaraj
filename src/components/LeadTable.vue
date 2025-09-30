@@ -1,6 +1,6 @@
 <template>
   <div>
-    <table class="w-full border rounded overflow-hidden">
+    <table class="w-full border overflow-hidden">
       <thead class="bg-gray-100">
         <tr>
           <th class="p-2 border">ID</th>
@@ -16,7 +16,7 @@
           <td class="p-2 border">{{ l.id }}</td>
           <td class="p-2 border">{{ l.name }}</td>
           <td class="p-2 border">{{ l.email }}</td>
-          <td class="p-2 border">{{ l.phone_no }}</td>
+          <td class="p-2 border">{{ l.phone || l.phone_no }}</td>
           <td class="p-2 border">{{ l.message }}</td>
           <td class="p-2 border">{{ l.address }}</td>
         </tr>
@@ -34,15 +34,18 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import api from '@/plugins/axios' // ✅ your axios instance
+import api from '@/plugins/axios'
 
 const leads = ref<any[]>([])
 const error = ref('')
 
 async function fetchLeads() {
   try {
-    const response = await api.get('/auth/leads/view') // ✅ axios GET
-    leads.value = response.data
+    const { data } = await api.get('/auth/leads_view')
+    console.log('Leads fetched:', data)
+
+    // if API response is wrapped, adjust here
+    leads.value = Array.isArray(data) ? data : data.data || []
   } catch (err: any) {
     error.value = err.response?.data?.message || 'Something went wrong'
     console.error(err)
