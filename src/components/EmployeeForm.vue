@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-white rounded  w-full">
+  <div class="bg-white rounded w-full">
     <h3 class="text-xl font-bold mb-4">{{ editData ? 'Edit' : 'Add' }} Employee</h3>
     <form @submit.prevent="handleSubmit">
 
@@ -40,22 +40,41 @@
       <div v-if="errors.phone_no" class="text-red-600 text-sm mb-2">{{ errors.phone_no[0] }}</div>
 
       <!-- Password (only for add) -->
-      <input
-        v-if="!editData"
-        v-model="password"
-        type="password"
-        placeholder="Password"
-        class="w-full mb-1 p-2 border rounded"
-      />
+      <div v-if="!editData" class="relative mb-1">
+        <input
+          v-model="password"
+          :type="showPassword ? 'text' : 'password'"
+          placeholder="Password"
+          class="w-full p-2 border rounded pr-10"
+        />
+        <button
+          type="button"
+          @click="showPassword = !showPassword"
+          class="absolute right-3 top-2 text-gray-500"
+        >
+          <span v-if="showPassword">🙈</span>
+          <span v-else>👁️</span>
+        </button>
+      </div>
       <div v-if="errors.password" class="text-red-600 text-sm mb-2">{{ errors.password[0] }}</div>
 
-      <input
-        v-if="!editData"
-        v-model="password_confirmation"
-        type="password"
-        placeholder="Confirm Password"
-        class="w-full mb-1 p-2 border rounded"
-      />
+      <!-- Confirm Password -->
+      <div v-if="!editData" class="relative mb-1">
+        <input
+          v-model="password_confirmation"
+          :type="showConfirmPassword ? 'text' : 'password'"
+          placeholder="Confirm Password"
+          class="w-full p-2 border rounded pr-10"
+        />
+        <button
+          type="button"
+          @click="showConfirmPassword = !showConfirmPassword"
+          class="absolute right-3 top-2 text-gray-500"
+        >
+          <span v-if="showConfirmPassword">🙈</span>
+          <span v-else>👁️</span>
+        </button>
+      </div>
       <div v-if="errors.password_confirmation" class="text-red-600 text-sm mb-2">{{ errors.password_confirmation[0] }}</div>
 
       <!-- Role -->
@@ -75,8 +94,8 @@
       <div v-if="errors.status" class="text-red-600 text-sm mb-2">{{ errors.status[0] }}</div>
 
       <!-- Image -->
-      <input type="file" @change="onFileChange" class="mb-4" />
-      <div v-if="errors.img" class="text-red-600 text-sm mb-2">{{ errors.img[0] }}</div>
+    <!--   <input type="file" @change="onFileChange" class="mb-4" />
+      <div v-if="errors.img" class="text-red-600 text-sm mb-2">{{ errors.img[0] }}</div> -->
 
       <!-- Buttons -->
       <div class="flex justify-end gap-2">
@@ -96,10 +115,7 @@ import { ref, watch } from "vue"
 import { useEmployeeStore } from "@/store/employeeStore"
 
 const props = defineProps<{ editData: any | null }>()
-const emit = defineEmits<{
-  (e: "save"): void
-  (e: "close"): void
-}>()
+const emit = defineEmits<{ (e: "save"): void; (e: "close"): void }>()
 
 const store = useEmployeeStore()
 
@@ -114,6 +130,10 @@ const role = ref("")
 const status = ref("active")
 const imgFile = ref<File | null>(null)
 const errors = ref<Record<string, string[]>>({})
+
+// Password toggle
+const showPassword = ref(false)
+const showConfirmPassword = ref(false)
 
 // Watch for edit data
 watch(
