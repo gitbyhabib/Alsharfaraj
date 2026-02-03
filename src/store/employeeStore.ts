@@ -15,7 +15,7 @@ interface Employee {
 export const useEmployeeStore = defineStore('employees', {
   state: () => ({
     employees: [] as Employee[],
-    baseUrl: 'http://localhost:8000/api',
+    baseUrl: 'http://api.alsharfarajoverseas.com/api',
     token: localStorage.getItem('token') || '' // ensure token from login is saved here
   }),
   actions: {

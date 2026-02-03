@@ -21,7 +21,7 @@ export const useCustomerStore = defineStore('customer', {
     // Fetch all customers
     async fetchCustomers() {
       try {
-        const response = await axios.get('http://localhost:8000/api/customer/view')
+        const response = await axios.get('http://api.alsharfarajoverseas.com/api/customer/view')
         this.customers = response.data.data || response.data
       } catch (error: any) {
         console.error('Error fetching customers:', error)
@@ -31,7 +31,7 @@ export const useCustomerStore = defineStore('customer', {
     // Register a new customer
     async addCustomer(customer: Customer) {
       try {
-        await axios.post('http://localhost:8000/api/customer/register', customer)
+        await axios.post('http://api.alsharfarajoverseas.com/api/customer/register', customer)
       } catch (error: any) {
         this.errors = error.response?.data?.errors || {}
         throw error
@@ -41,7 +41,7 @@ export const useCustomerStore = defineStore('customer', {
     // Update customer
     async updateCustomer(customer: Customer) {
       try {
-        await axios.post(`http://localhost:8000/api/customer/update/${customer.id}`, customer)
+        await axios.post(`http://api.alsharfarajoverseas.com/api/customer/update/${customer.id}`, customer)
       } catch (error: any) {
         this.errors = error.response?.data?.errors || {}
         throw error
@@ -51,7 +51,7 @@ export const useCustomerStore = defineStore('customer', {
     // Delete customer
   /*   async removeCustomer(id: number) {
       try {
-        await axios.delete(`http://localhost:8000/api/customer/${id}`)
+        await axios.delete(`http://api.alsharfarajoverseas.com/api/customer/${id}`)
         this.customers = this.customers.filter(c => c.id !== id)
       } catch (error: any) {
         console.error('Error deleting customer:', error)

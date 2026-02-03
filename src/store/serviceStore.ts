@@ -16,7 +16,7 @@ export interface Service {
 export const useServiceStore = defineStore('service', {
   state: () => ({
     services: [] as Service[],
-    baseUrl: 'http://localhost:8000/api',
+    baseUrl: 'http://api.alsharfarajoverseas.com/api',
     token: localStorage.getItem('token') || ''
   }),
   actions: {

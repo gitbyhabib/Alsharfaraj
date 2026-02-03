@@ -137,7 +137,7 @@ methods: {
     }
 
     try {
-      const response = await fetch('http://localhost:8000/api/leads', {
+      const response = await fetch('http://api.alsharfarajoverseas.com/api/leads', {
         method: 'POST',
         body: this.buildFormData(this.form) // send as form-data
       })
