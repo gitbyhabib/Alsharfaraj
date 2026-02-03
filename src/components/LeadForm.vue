@@ -63,7 +63,7 @@ async function save() {
   statusMessage.value = ''
   statusError.value = false
   try {
-    const response = await fetch('http://api.alsharfarajoverseas.com/api/leads', {
+    const response = await fetch('https://api.alsharfarajoverseas.com/api/leads', {
       method: 'POST',
       body: buildFormData(form.value)
     })

@@ -2,7 +2,7 @@
 import axios from 'axios'
 
 const api = axios.create({
-  baseURL: 'http://api.alsharfarajoverseas.com/api',
+  baseURL: 'https://api.alsharfarajoverseas.com/api',
 })
 
 // Attach token from localStorage automatically
