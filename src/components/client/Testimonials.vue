@@ -42,7 +42,7 @@
       <!-- Dots -->
       <div class="flex justify-center mt-6 space-x-2">
         <span
-          v-for="(testimonial, index) in testimonials"
+          v-for="(_, index) in testimonials"
           :key="'dot-' + index"
           @click="goTo(index)"
           :class="{
@@ -56,12 +56,13 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   name: 'TestimonialSlider',
   data() {
     return {
       currentIndex: 0,
+      timer: null as any,
       testimonials: [
         {
           name: 'Jane Doe',
@@ -93,7 +94,7 @@ export default {
     this.startAutoSlide()
   },
   beforeUnmount() {
-    clearInterval(this.timer)
+    clearInterval(this.timer as any)
   },
   methods: {
     next() {
@@ -103,16 +104,17 @@ export default {
       this.currentIndex =
         (this.currentIndex - 1 + this.testimonials.length) % this.testimonials.length
     },
-    goTo(index) {
+    goTo(index: number) {
       this.currentIndex = index
     },
     startAutoSlide() {
       this.timer = setInterval(() => {
         this.next()
-      }, 5000)
+      }, 5000) as any
     },
   },
 }
+
 </script>
 
 <style scoped>

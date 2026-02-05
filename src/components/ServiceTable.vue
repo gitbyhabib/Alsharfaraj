@@ -23,8 +23,8 @@
           <td class="py-2 px-4">{{ getEmployeeName(service.service_assign_to) }}</td>
           <td class="py-2 px-4">{{ getCustomerName(service.customer_id) }}</td>
           <td class="py-2 px-4">{{ getServiceTypeName(service.service_type_id) }}</td> <!-- ✅ show type -->
-          <td class="py-2 px-4">{{ formatDate(service.receive_date) }}</td>
           <td class="py-2 px-4">{{ formatDate(service.delivery_date) }}</td>
+          <td class="py-2 px-4">{{ formatDate(service.receive_date) }}</td>
           <td class="py-2 px-4 space-x-2">
             <button @click="$emit('edit', service)" class="bg-yellow-500 text-white px-2 py-1 rounded hover:bg-yellow-600">Edit</button>
             <button @click="$emit('delete', service.id)" class="bg-red-600 text-white px-2 py-1 rounded hover:bg-red-700">Delete</button>
@@ -37,13 +37,13 @@
 
 
 <script setup lang="ts">
-import { defineProps, onMounted } from 'vue'
+import { onMounted } from 'vue'
 import type { Service } from '../store/serviceStore'
 import { useEmployeeStore } from '../store/employeeStore'
 import { useCustomerStore } from '../store/customerStore'
 import { useServiceTypeStore } from '../store/serviceTypeStore' // ✅ import service types
 
-const props = defineProps<{ services: Service[] }>()
+const { services } = defineProps<{ services: Service[] }>()
 
 const employeeStore = useEmployeeStore()
 const customerStore = useCustomerStore()
@@ -63,17 +63,17 @@ onMounted(() => {
 })
 
 function getEmployeeName(id: string | number) {
-  const emp = employeeStore.employees.find(e => e.id == id)
+  const emp = employeeStore.employees.find(e => e.id === id)
   return emp ? emp.name : 'Unknown'
 }
 
 function getCustomerName(id: string | number) {
-  const cust = customerStore.customers.find(c => c.id == id)
+  const cust = customerStore.customers.find(c => c.id === id)
   return cust ? cust.name : 'Unknown'
 }
 
 function getServiceTypeName(id: string | number) {
-  const type = serviceTypeStore.serviceTypes.find(t => t.id == id)
+  const type = serviceTypeStore.serviceTypes.find(t => t.id === id)
   return type ? type.name : 'Unknown'
 }
 

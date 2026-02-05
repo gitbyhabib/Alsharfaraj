@@ -68,7 +68,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onMounted, computed } from 'vue'
-import { Service } from '../store/serviceStore'
+import type { Service } from '../store/serviceStore'
 import { useEmployeeStore } from '../store/employeeStore'
 import { useServiceTypeStore } from '../store/serviceTypeStore'
 

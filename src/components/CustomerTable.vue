@@ -33,9 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps, defineEmits } from 'vue'
 import type { Customer } from '../store/customerStore'
 
-const props = defineProps<{ customers: Customer[] }>()
-const emit = defineEmits<{ (e: 'edit', customer: Customer): void; (e: 'delete', id: number): void }>()
+const { customers } = defineProps<{ customers: Customer[] }>()
 </script>

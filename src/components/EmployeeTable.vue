@@ -31,7 +31,6 @@
 </template>
 
 <script setup lang="ts">
-import { defineProps } from 'vue'
 
 interface Employee {
   id: number
@@ -42,7 +41,7 @@ interface Employee {
   status: string
 }
 
-const props = defineProps<{
+const { employees } = defineProps<{
   employees: Employee[]
 }>()
 </script>

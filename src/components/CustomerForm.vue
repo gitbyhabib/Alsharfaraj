@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, watch, defineProps, defineEmits } from 'vue'
+import { ref, watch } from 'vue'
 import type { Customer } from '../store/customerStore'
 
 const props = defineProps<{ customer?: Customer; errors: Record<string, string[]> }>()

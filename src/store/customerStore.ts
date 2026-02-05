@@ -49,13 +49,13 @@ export const useCustomerStore = defineStore('customer', {
     },
 
     // Delete customer
-  /*   async removeCustomer(id: number) {
+    async removeCustomer(id: number) {
       try {
         await axios.delete(`https://api.alsharfarajoverseas.com/api/customer/${id}`)
         this.customers = this.customers.filter(c => c.id !== id)
       } catch (error: any) {
         console.error('Error deleting customer:', error)
       }
-    }, */
+    },
   },
 })

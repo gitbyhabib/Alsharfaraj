@@ -52,11 +52,11 @@ onMounted(() => {
 
 const employees = computed(() => employeeStore.employees)
 
-function saveEmployee(data: FormData) {
-  if (editData.value) {
-    employeeStore.updateEmployee(editData.value.id, data)
-  } else {
-    employeeStore.addEmployee(data)
+function saveEmployee(data?: FormData) {
+  if (editData.value && data) {
+    employeeStore.updateEmployee(editData.value.id, data as any)
+  } else if (data) {
+    employeeStore.addEmployee(data as any)
   }
   closeForm()
 }

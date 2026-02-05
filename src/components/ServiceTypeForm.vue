@@ -37,7 +37,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { ServiceType } from '../store/serviceTypeStore'
+import type { ServiceType } from '../store/serviceTypeStore'
 
 const props = defineProps<{ serviceType?: ServiceType; errors?: Record<string, string[]> }>()
 const emit = defineEmits<{ (e: 'save', data: { name: string; status: string; minimum_cost: number }): void; (e: 'close'): void }>()

@@ -22,7 +22,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 import ServiceCard from './ServiceCard.vue'
 
 export default {

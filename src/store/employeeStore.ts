@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import axios from 'axios'
 
-export type Role = 'super_admin' | 'admin' | 'employee'
+export type Role = 'Super Admin' | 'Admin' | 'Employee'
 
-interface Employee {
+export interface Employee {
   id: number
   name: string
   email: string
-  phone: string
+  phone_no: string
   role: Role
   status: 'active' | 'inactive'
 }

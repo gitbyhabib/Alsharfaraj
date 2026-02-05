@@ -36,9 +36,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
-import { defineEmits } from 'vue'
-
-const emit = defineEmits(['save', 'close'])
+const emit = defineEmits<{ (e: 'save', lead: any): void; (e: 'close'): void }>()
 
 const form = ref({
   name: '',
@@ -70,9 +68,12 @@ async function save() {
 
     if (!response.ok) throw new Error('Network response was not ok')
 
+    const body = await response.json()
+    const saved = body.data || body
+
     statusMessage.value = '✅ Lead saved successfully!'
     statusError.value = false
-    emit('save')       // parent can refresh list
+    emit('save', saved) // emit created lead payload
     form.value = { name: '', email: '', address: '', phone_no: '', message: '' }
 
     setTimeout(() => emit('close'), 1000)

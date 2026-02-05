@@ -22,7 +22,7 @@
             width="100%"
             height="300"
             style="border:0;"
-            allowfullscreen=""
+            allowfullscreen
             loading="lazy"
             referrerpolicy="no-referrer-when-downgrade"
           ></iframe>
@@ -107,7 +107,7 @@
   </section>
 </template>
 
-<script>
+<script lang="ts">
 export default {
   data() {
     return {
@@ -123,7 +123,7 @@ export default {
     }
   },
 methods: {
-  validatePhone(phone) {
+  validatePhone(phone: string) {
     // Example: Bangladeshi phone format (starts with 01 and 11 digits total)
     const phoneRegex = /^01[3-9]\d{8}$/
     return phoneRegex.test(phone)
@@ -153,7 +153,7 @@ methods: {
       console.error(error)
     }
   },
-  buildFormData(data) {
+  buildFormData(data: Record<string, any>) {
     const formData = new FormData()
     for (const key in data) {
       formData.append(key, data[key])

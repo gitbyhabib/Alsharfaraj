@@ -17,18 +17,23 @@
 import Navbar from '../components/Navbar.vue'
 import LeadTable from '../components/LeadTable.vue'
 import LeadForm from '../components/LeadForm.vue'
-import { useLeadStore } from '../store/leadStore'
-import { ref } from 'vue'
-import { useAuthStore } from '../store/authStore'
+import { useLeadStore, type Lead } from '../store/leadStore'
+import { ref, onMounted } from 'vue'
 
 const leadStore = useLeadStore()
-const auth = useAuthStore()
+
 const showForm = ref(false)
+
+onMounted(() => {
+  leadStore.fetchLeads()
+})
 
 const leads = leadStore.leads
 
-function addLead(data: any) {
-  leadStore.addLead({...data, id: Date.now(), status: 'New'})
+function addLead(data: Lead) {
+  // If backend returned a saved lead, prefer that; otherwise assign a temporary id
+  const newLead = { ...data, id: data.id || Date.now(), status: data.status || 'New' }
+  leadStore.addLead(newLead)
   showForm.value = false
 }
 

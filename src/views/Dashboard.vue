@@ -32,7 +32,6 @@
 </template>
 
 <script setup lang="ts">
-import Navbar from '../components/Navbar.vue'
 import { useCustomerStore } from '../store/customerStore'
 import { useEmployeeStore } from '../store/employeeStore'
 import { useServiceStore } from '../store/serviceStore'
@@ -46,5 +45,5 @@ const auth = useAuthStore()
 const customers = customerStore.customers
 const employees = employeesStore.employees
 const services = serviceStore.services
-const isAdmin = auth.user?.role === 'admin' || auth.user?.role === 'super_admin'
+const isAdmin = auth.user?.role === 'Admin' || auth.user?.role === 'Super Admin'
 </script>

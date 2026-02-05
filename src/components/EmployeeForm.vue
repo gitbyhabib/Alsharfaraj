@@ -112,7 +112,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from "vue"
-import { useEmployeeStore } from "@/store/employeeStore"
+import { useEmployeeStore } from "../store/employeeStore"
 
 const props = defineProps<{ editData: any | null }>()
 const emit = defineEmits<{ (e: "save"): void; (e: "close"): void }>()
@@ -128,7 +128,6 @@ const password = ref("")
 const password_confirmation = ref("")
 const role = ref("")
 const status = ref("active")
-const imgFile = ref<File | null>(null)
 const errors = ref<Record<string, string[]>>({})
 
 // Password toggle
@@ -162,14 +161,6 @@ watch(
   },
   { immediate: true }
 )
-
-// Handle file change
-function onFileChange(e: Event) {
-  const target = e.target as HTMLInputElement
-  if (target.files && target.files.length > 0) {
-    imgFile.value = target.files[0]
-  }
-}
 
 // Frontend validation
 function validateForm(): boolean {
@@ -208,15 +199,11 @@ async function handleSubmit() {
     formData.append("password_confirmation", password_confirmation.value)
   }
 
-  if (imgFile.value) {
-    formData.append("img", imgFile.value)
-  }
-
   try {
     if (props.editData) {
-      await store.updateEmployee(props.editData.id, formData)
+      await store.updateEmployee(props.editData.id, formData as any)
     } else {
-      await store.addEmployee(formData)
+      await store.addEmployee(formData as any)
     }
     emit("save")
   } catch (err: any) {

@@ -7,7 +7,7 @@
       <router-link to="/services" class="hover:text-gray-300">Services</router-link>
       <!-- Only show Employees link for admin/superadmin -->
       <router-link 
-        v-if="auth.user?.role === 'admin' || auth.user?.role === 'super_admin'" 
+        v-if="auth.user?.role === 'Admin' || auth.user?.role === 'Super Admin'" 
         to="/employees" 
         class="hover:text-gray-300">
         Employees

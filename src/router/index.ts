@@ -25,7 +25,7 @@ const router = createRouter({
   routes,
 })
 
-router.beforeEach(async (to, from, next) => {
+router.beforeEach((to, _from, next) => {
   const authStore = useAuthStore()
 
   // Only allow user if both token AND user exist
@@ -39,7 +39,7 @@ router.beforeEach(async (to, from, next) => {
     return next({ name: 'Dashboard', replace: true })
   }
 
-  if (to.meta.adminOnly && authStore.user?.role !== 'admin' && authStore.user?.role !== 'super_admin') {
+  if (to.meta.adminOnly && authStore.user?.role !== 'Admin' && authStore.user?.role !== 'Super Admin') {
     return next({ name: 'Dashboard', replace: true })
   }
 

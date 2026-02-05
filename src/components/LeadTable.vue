@@ -34,7 +34,7 @@
 
 <script setup lang="ts">
 import { ref, onMounted } from 'vue'
-import api from '@/plugins/axios'
+import api from '../plugins/axios'
 
 const leads = ref<any[]>([])
 const error = ref('')

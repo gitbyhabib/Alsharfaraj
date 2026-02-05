@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import api from '@/plugins/axios'
+import api from '../plugins/axios'
 
 export interface ServiceType {
   id: number

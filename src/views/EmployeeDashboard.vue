@@ -28,5 +28,5 @@ const serviceStore = useServiceStore()
 const auth = useAuthStore()
 
 const assignedLeads = leadStore.leads.filter(l => l.assignedTo === auth.user?.name).length
-const assignedServices = serviceStore.services.filter(s => s.assignedTo === auth.user?.name).length
+const assignedServices = serviceStore.services.filter(s => s.service_assign_to === auth.user?.id || s.service_assign_to === auth.user?.name).length
 </script>
