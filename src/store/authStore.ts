@@ -5,7 +5,7 @@ interface User {
   id: number
   name: string
   email: string
-  role: 'Super Admin' | 'Admin' | 'Employee'
+  role: 'super_admin' | 'sub_admin' | 'employee'
 }
 
 export const useAuthStore = defineStore('auth', {
@@ -15,6 +15,7 @@ export const useAuthStore = defineStore('auth', {
   }),
   actions: {
     async login(email: string, password: string) {
+      console.log('Logging in with', email,password)
       const response = await api.post('/login', { email, password })
       const token = response.data.data.token
 

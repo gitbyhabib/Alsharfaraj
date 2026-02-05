@@ -45,5 +45,5 @@ const auth = useAuthStore()
 const customers = customerStore.customers
 const employees = employeesStore.employees
 const services = serviceStore.services
-const isAdmin = auth.user?.role === 'Admin' || auth.user?.role === 'Super Admin'
+const isAdmin = auth.user?.role === 'sub_admin' || auth.user?.role === 'super_admin'
 </script>
