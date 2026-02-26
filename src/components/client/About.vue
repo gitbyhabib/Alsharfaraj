@@ -7,7 +7,7 @@
         </div>
         <div class="md:w-1/2">
           <h2 class="text-4xl font-bold text-gray-800 mb-4">Our Story & Our Mission</h2>
-          <p class="text-lg text-gray-600">Founded in [Year], we have been dedicated to providing seamless and transparent services to our clients. Our mission is to empower individuals to achieve their global aspirations with confidence and ease.</p>
+          <p class="text-lg text-gray-600">Founded in 2023, we have been dedicated to providing seamless and transparent services to our clients. Our mission is to empower individuals to achieve their global aspirations with confidence and ease.</p>
           <ul class="mt-6 space-y-2">
             <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-2"></i> High success rate and client satisfaction.</li>
             <li class="flex items-center text-gray-700"><i class="fas fa-check-circle text-green-500 mr-2"></i> Experienced team of consultants.</li>

@@ -65,13 +65,13 @@ export default {
       timer: null as any,
       testimonials: [
         {
-          name: 'Jane Doe',
+          name: 'Ismail jabiullah',
           designation: 'Client, Dhaka',
           message:
             "I couldn't be happier with the service. They handled my visa application with professionalism and efficiency. Highly recommended!",
         },
         {
-          name: 'John Smith',
+          name: 'Abul Bashar',
           designation: 'Client, Chittagong',
           message:
             'Excellent guidance throughout my study abroad process. Friendly and professional team!',

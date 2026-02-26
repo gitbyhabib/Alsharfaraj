@@ -36,28 +36,32 @@
 </template>
 
 <script lang="ts">
+import b1 from '../../assets/team/b1.png'
+import b2 from '../../assets/team/b2.png' 
+import b3 from '../../assets/team/b3.png'
 export default {
   name: 'TeamSection',
   data() {
     return {
       team: [
         {
-          photo: 'https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=687&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          photo: b1,
           name: 'Md. Afaj Uddin',
           role: 'CEO & Founder',
           email: 'afajtradeinternational2022@gmail.com',
           phone: '+8801511361847',
         },
         {
-          photo: 'https://images.unsplash.com/photo-1627161683077-e34782c24d81?q=80&w=703&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+          photo: b2,
           name: 'Md. Mahbub Rahman',
           role: 'Head of Services',
           email: 'apontravels2023@gmail.com',
           phone: '+8801712498738',
         },
         {
-          photo: 'https://images.unsplash.com/photo-1605599355426-c671ba78fdab?q=80&w=636&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-          name: 'Md. Momin Ali',
+                 photo: b3,
+
+                  name: 'Md. Momin Ali',
           role: 'Study Abroad Consultant',
           email: 'alsharfaraj2023@gmail.com',
           phone: '+8801823133426',
